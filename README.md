@@ -4,7 +4,7 @@
 A simple, modern, and responsive to-do list app built with pure JavaScript, HTML, and CSS. No backend or frameworks required.
 
 ## 🚀 Live Demo
-[View Live Demo](https://yourusername.github.io/your-repo-name/) *(Update this link after publishing)*
+[View Live Demo](https://jaans21.github.io/todo-list-js/)
 
 ## ✨ Features
 - Add, complete, and delete tasks
