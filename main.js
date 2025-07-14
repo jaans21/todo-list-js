@@ -715,6 +715,24 @@ document.body.innerHTML = `
         font-size: 1.3rem;
       }
     }
+
+    .app-footer {
+      text-align: center;
+      padding: 16px 0;
+      margin-top: 24px;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .app-footer a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .app-footer a:hover {
+      text-decoration: underline;
+    }
   </style>
   <div class="app-container">
     <div class="sidebar" id="sidebar">
@@ -760,6 +778,10 @@ document.body.innerHTML = `
         <div id="content-area">
           <div id="reminders-container"></div>
           <ul class="todo-list" id="todo-list"></ul>
+        </div>
+        
+        <div class="app-footer">
+          Made by <a href="https://github.com/jaans21" target="_blank">jaans21</a>
         </div>
       </div>
     </div>
