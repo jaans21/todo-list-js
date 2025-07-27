@@ -45,6 +45,8 @@ document.body.innerHTML = `
       min-height: 100vh;
       display: flex;
       transition: background-color 0.3s ease, color 0.3s ease;
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .app-container {
@@ -93,6 +95,9 @@ document.body.innerHTML = `
       background: var(--container-bg);
       color: var(--text-color);
       transition: all 0.3s ease;
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .folder-input:focus {
@@ -150,6 +155,8 @@ document.body.innerHTML = `
       padding: 10px;
       max-height: calc(100vh - 80px);
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
     }
 
     .tree-item {
@@ -240,6 +247,8 @@ document.body.innerHTML = `
       justify-content: center;
       align-items: flex-start;
       padding: 20px;
+      min-height: 100vh;
+      box-sizing: border-box;
     }
     .todo-container {
       background: var(--container-bg);
@@ -253,6 +262,7 @@ document.body.innerHTML = `
       flex-direction: column;
       gap: 18px;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-sizing: border-box;
     }
     
     [data-theme="dark"] .todo-container {
@@ -354,11 +364,17 @@ document.body.innerHTML = `
       display: flex;
       flex-direction: column;
       gap: 8px;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .todo-form-main {
       display: flex;
       gap: 8px;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .todo-form-datetime {
@@ -367,6 +383,10 @@ document.body.innerHTML = `
       align-items: center;
       font-size: 0.9rem;
       color: var(--text-muted);
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      flex-wrap: wrap;
     }
 
     .datetime-input {
@@ -377,6 +397,9 @@ document.body.innerHTML = `
       background: var(--container-bg);
       color: var(--text-color);
       transition: all 0.3s ease;
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .datetime-input:focus {
@@ -409,6 +432,9 @@ document.body.innerHTML = `
       background: var(--container-bg);
       color: var(--text-color);
       transition: all 0.3s ease;
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
     }
     .todo-input:focus {
       border: 1.5px solid var(--primary-color);
@@ -691,28 +717,446 @@ document.body.innerHTML = `
       background: #c53030;
     }
 
-    @media (max-width: 768px) {
+    /* Mobile Menu Toggle */
+    .mobile-menu-toggle {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 12px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .mobile-menu-toggle:hover {
+      background: var(--primary-hover);
+      transform: scale(1.05);
+    }
+
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 1024px) {
       .sidebar {
-        width: 240px;
+        width: 260px;
+      }
+      
+      .todo-container {
+        max-width: 600px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-toggle {
+        display: block;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        height: 100vh;
+        width: 280px;
+        z-index: 1000;
+        transition: left 0.3s ease;
+        overflow-y: auto;
+      }
+
+      .sidebar.open {
+        left: 0;
+      }
+
+      .sidebar.open ~ .mobile-overlay {
+        display: block;
       }
 
       .main-content {
-        padding: 10px;
+        width: 100%;
+        padding: 70px 15px 20px 15px;
+        margin-left: 0;
       }
 
       .todo-container {
         max-width: none;
-        padding: 20px 16px;
+        padding: 24px 20px;
+        margin: 0;
+      }
+
+      .todo-header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+      }
+
+      .todo-title {
+        text-align: center;
+        font-size: 1.8rem;
+      }
+
+      .theme-toggle {
+        align-self: center;
+      }
+
+      .folder-form {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .folder-input {
+        width: 100%;
+      }
+
+      .todo-form-main {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .todo-input {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+      }
+
+      .todo-add-btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+      }
+
+      .todo-form-datetime {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .datetime-input {
+        min-width: 140px;
+        padding: 8px;
       }
     }
 
-    @media (max-width: 500px) {
-      .todo-container {
-        padding: 18px 6px 16px 6px;
-        max-width: 98vw;
+    @media (max-width: 640px) {
+      .main-content {
+        padding: 70px 10px 20px 10px;
       }
+
+      .todo-container {
+        padding: 20px 16px;
+        border-radius: 8px;
+      }
+
+      .todo-title {
+        font-size: 1.6rem;
+      }
+
+      .todo-item {
+        padding: 12px;
+        border-radius: 8px;
+      }
+
+      .todo-checkbox {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+
+      .todo-text {
+        font-size: 0.95rem;
+        line-height: 1.4;
+      }
+
+      .todo-delete-btn {
+        padding: 8px;
+        font-size: 1.1rem;
+        min-width: 36px;
+        min-height: 36px;
+      }
+
+      .folder-item {
+        padding: 14px 12px;
+        margin-bottom: 10px;
+      }
+
+      .modal {
+        width: 95%;
+        padding: 20px;
+        margin: 10px;
+      }
+
+      .modal-title {
+        font-size: 1.2rem;
+      }
+
+      .breadcrumb {
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-content {
+        padding: 70px 8px 15px 8px;
+      }
+
+      .todo-container {
+        padding: 18px 12px;
+        gap: 16px;
+      }
+
+      .todo-title {
+        font-size: 1.4rem;
+      }
+
+      .sidebar-header {
+        padding: 16px;
+      }
+
+      .sidebar-title {
+        font-size: 1rem;
+      }
+
+      .todo-form-datetime {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .datetime-input {
+        min-width: auto;
+        width: 100%;
+      }
+
+      .tree-item {
+        padding: 10px;
+        margin-bottom: 4px;
+      }
+
+      .tree-name {
+        font-size: 0.85rem;
+      }
+
+      .recycle-bin {
+        padding: 10px;
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .todo-container {
+        padding: 16px 10px;
+        gap: 14px;
+      }
+
       .todo-title {
         font-size: 1.3rem;
+      }
+
+      .todo-input {
+        padding: 10px;
+        font-size: 0.95rem;
+      }
+
+      .todo-add-btn {
+        padding: 10px;
+        font-size: 0.95rem;
+      }
+
+      .todo-item {
+        padding: 10px;
+      }
+
+      .todo-text {
+        font-size: 0.9rem;
+      }
+
+      .folder-item {
+        padding: 12px 10px;
+      }
+
+      .folder-name {
+        font-size: 0.9rem;
+      }
+    }
+
+    /* Touch improvements */
+    @media (hover: none) and (pointer: coarse) {
+      .todo-delete-btn,
+      .tree-delete,
+      .theme-toggle,
+      .folder-add-btn,
+      .todo-add-btn {
+        min-height: 44px;
+        min-width: 44px;
+      }
+
+      .todo-checkbox {
+        min-width: 24px;
+        min-height: 24px;
+      }
+
+      .tree-item,
+      .folder-item,
+      .todo-item,
+      .recycle-bin {
+        min-height: 48px;
+      }
+    }
+
+    /* Landscape orientation adjustments */
+    @media screen and (max-height: 500px) and (orientation: landscape) {
+      .main-content {
+        padding: 50px 15px 15px 15px;
+      }
+
+      .mobile-menu-toggle {
+        top: 8px;
+        left: 8px;
+        padding: 8px;
+        font-size: 1rem;
+        z-index: 1002;
+      }
+
+      .sidebar-header {
+        padding: 12px;
+      }
+
+      .todo-container {
+        padding: 16px;
+        gap: 12px;
+      }
+
+      .todo-title {
+        font-size: 1.4rem;
+      }
+    }
+
+    /* Very short screens (like landscape phones) */
+    @media screen and (max-height: 400px) {
+      .main-content {
+        padding: 45px 10px 10px 10px;
+      }
+
+      .mobile-menu-toggle {
+        top: 5px;
+        left: 5px;
+        padding: 6px;
+        font-size: 0.9rem;
+        border-radius: 4px;
+      }
+
+      .todo-container {
+        padding: 12px;
+        gap: 10px;
+        border-radius: 8px;
+      }
+
+      .todo-title {
+        font-size: 1.2rem;
+      }
+
+      .todo-header {
+        margin-bottom: 4px;
+      }
+
+      .breadcrumb {
+        margin-bottom: 8px;
+      }
+    }
+
+    /* High-resolution displays */
+    @media screen and (min-resolution: 2dppx) {
+      .todo-container {
+        box-shadow: 0 4px 32px rgba(0,0,0,0.1);
+      }
+
+      .mobile-menu-toggle {
+        box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+      }
+    }
+
+    /* Extra large screens */
+    @media (min-width: 1440px) {
+      .main-content {
+        padding: 40px;
+      }
+
+      .todo-container {
+        max-width: 700px;
+        padding: 40px 32px;
+      }
+
+      .todo-title {
+        font-size: 2.2rem;
+      }
+
+      .sidebar {
+        width: 320px;
+      }
+    }
+
+    /* Ultra-wide screens */
+    @media (min-width: 1920px) {
+      .app-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        box-shadow: 0 0 40px rgba(0,0,0,0.1);
+      }
+
+      .todo-checkbox {
+        min-width: 24px;
+        min-height: 24px;
+      }
+
+      .tree-item,
+      .folder-item,
+
+      .main-content {
+        padding: 60px;
+      }
+
+      .todo-container {
+        max-width: 800px;
+        padding: 48px 40px;
+      }
+    }
+
+    /* Improved focus styles for accessibility */
+    .todo-input:focus,
+    .folder-input:focus,
+    .datetime-input:focus {
+      box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+    }
+
+    .mobile-menu-toggle:focus {
+      box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.3);
+      outline: none;
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
     }
 
@@ -734,6 +1178,8 @@ document.body.innerHTML = `
       text-decoration: underline;
     }
   </style>
+  <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">☰</button>
+  <div class="mobile-overlay" id="mobile-overlay"></div>
   <div class="app-container">
     <div class="sidebar" id="sidebar">
       <div class="sidebar-header">
@@ -804,6 +1250,8 @@ const folderTree = document.querySelector('#folder-tree');
 const folderForm = document.querySelector('#folder-form');
 const folderInput = document.querySelector('#folder-input');
 const recycleBinElement = document.querySelector('#recycle-bin');
+const mobileMenuToggle = document.querySelector('#mobile-menu-toggle');
+const mobileOverlay = document.querySelector('#mobile-overlay');
 
 // App state
 let currentPath = []; // Array of folder names representing current location
@@ -840,6 +1288,96 @@ function updateThemeIcon(theme) {
 }
 
 themeToggle.addEventListener('click', toggleTheme);
+
+// Mobile menu functionality
+function toggleMobileMenu() {
+  sidebar.classList.toggle('open');
+  const isOpen = sidebar.classList.contains('open');
+  mobileMenuToggle.setAttribute('aria-expanded', isOpen);
+  
+  if (isOpen) {
+    document.body.style.overflow = 'hidden';
+    mobileOverlay.style.display = 'block';
+  } else {
+    document.body.style.overflow = '';
+    mobileOverlay.style.display = 'none';
+  }
+}
+
+function closeMobileMenu() {
+  sidebar.classList.remove('open');
+  mobileMenuToggle.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+  mobileOverlay.style.display = 'none';
+}
+
+mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+mobileOverlay.addEventListener('click', closeMobileMenu);
+
+// Close mobile menu when window is resized to desktop size
+let resizeTimeout;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    if (window.innerWidth > 768) {
+      closeMobileMenu();
+    }
+  }, 100);
+});
+
+// Close mobile menu when navigating (for better UX)
+function closeMobileMenuOnNavigation() {
+  if (window.innerWidth <= 768) {
+    closeMobileMenu();
+  }
+}
+
+// Touch swipe functionality for mobile menu
+let touchStartX = 0;
+let touchEndX = 0;
+
+function handleSwipeGesture() {
+  const swipeThreshold = 50;
+  const swipeDistance = touchEndX - touchStartX;
+  
+  // Swipe right to open menu (only if touching from left edge)
+  if (swipeDistance > swipeThreshold && touchStartX < 30 && !sidebar.classList.contains('open')) {
+    if (window.innerWidth <= 768) {
+      toggleMobileMenu();
+    }
+  }
+  
+  // Swipe left to close menu
+  if (swipeDistance < -swipeThreshold && sidebar.classList.contains('open')) {
+    if (window.innerWidth <= 768) {
+      closeMobileMenu();
+    }
+  }
+}
+
+document.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+document.addEventListener('touchend', (e) => {
+  touchEndX = e.changedTouches[0].screenX;
+  handleSwipeGesture();
+}, { passive: true });
+
+// Keyboard navigation for mobile menu
+document.addEventListener('keydown', (e) => {
+  // Close menu with Escape key
+  if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+    closeMobileMenu();
+    mobileMenuToggle.focus();
+  }
+  
+  // Toggle menu with Enter/Space on mobile menu button
+  if ((e.key === 'Enter' || e.key === ' ') && e.target === mobileMenuToggle) {
+    e.preventDefault();
+    toggleMobileMenu();
+  }
+});
 
 // Clear date/time inputs
 clearDateTimeBtn.addEventListener('click', () => {
@@ -929,6 +1467,7 @@ function navigateToPath(path) {
   updateBreadcrumb();
   updateFolderTree();
   render();
+  closeMobileMenuOnNavigation();
 }
 
 // Folder tree rendering
